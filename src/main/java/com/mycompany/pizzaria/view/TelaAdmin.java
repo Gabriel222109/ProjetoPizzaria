@@ -183,25 +183,19 @@ public class TelaAdmin extends javax.swing.JFrame {
         }
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        String texto = jTextField1.getText().trim();
-        if (texto.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Digite: Nome, Catalogo, Preco");
+        private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        String nome = jTextField1.getText().trim();
+        String catalogo = jTextField3.getText().trim();
+        String precoTexto = jTextField4.getText().trim();
+
+        if (nome.isEmpty() || catalogo.isEmpty() || precoTexto.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Preencha Produto, Catalogo e Preco.");
             return;
         }
 
-        String[] partes = texto.split(",");
-        if (partes.length < 3) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Use o formato: Nome, Catalogo, Preco\nExemplo: Mussarela, Pizza, 39.90");
-            return;
-        }
-
-        String nome = partes[0].trim();
-        String catalogo = partes[1].trim();
         double preco;
         try {
-            preco = Double.parseDouble(partes[2].trim().replace(",", "."));
+            preco = Double.parseDouble(precoTexto.replace(",", "."));
         } catch (NumberFormatException e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Preco invalido.");
             return;
@@ -211,6 +205,8 @@ public class TelaAdmin extends javax.swing.JFrame {
                 new com.mycompany.pizzaria.controller.ProdutoController();
         if (controller.cadastrar(nome, catalogo, preco)) {
             jTextField1.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
             carregarTabela();
             javax.swing.JOptionPane.showMessageDialog(this, "Produto cadastrado.");
         } else {
@@ -218,8 +214,8 @@ public class TelaAdmin extends javax.swing.JFrame {
         }
     }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        String nome = jTextField3.getText().trim();
+       private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        String nome = jTextField1.getText().trim();
         if (nome.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Digite o nome do produto para deletar.");
             return;
@@ -228,7 +224,7 @@ public class TelaAdmin extends javax.swing.JFrame {
         com.mycompany.pizzaria.controller.ProdutoController controller =
                 new com.mycompany.pizzaria.controller.ProdutoController();
         if (controller.deletar(nome)) {
-            jTextField3.setText("");
+            jTextField1.setText("");
             carregarTabela();
             javax.swing.JOptionPane.showMessageDialog(this, "Produto deletado.");
         } else {
@@ -236,26 +232,28 @@ public class TelaAdmin extends javax.swing.JFrame {
         }
     }
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        String texto = jTextField4.getText().trim();
-        if (texto.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Digite: ID do pedido, Status\nExemplo: 1, Entregue");
+        private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+        String idTexto = jTextField1.getText().trim();
+        String status = jTextField3.getText().trim();
+
+        if (idTexto.isEmpty() || status.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Produto = ID do pedido\nCatalogo = status\nExemplo: 1 e Entregue");
             return;
         }
 
-        String[] partes = texto.split(",");
         int id;
         try {
-            id = Integer.parseInt(partes[0].trim());
+            id = Integer.parseInt(idTexto);
         } catch (NumberFormatException e) {
             javax.swing.JOptionPane.showMessageDialog(this, "ID invalido.");
             return;
         }
 
-        String status = partes.length > 1 ? partes[1].trim() : "Atualizado";
         com.mycompany.pizzaria.dao.PedidoDao dao = new com.mycompany.pizzaria.dao.PedidoDao();
         if (dao.atualizarStatus(id, status)) {
-            jTextField4.setText("");
+            jTextField1.setText("");
+            jTextField3.setText("");
             javax.swing.JOptionPane.showMessageDialog(this, "Pedido atualizado.");
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Pedido nao encontrado.");
@@ -301,7 +299,18 @@ public class TelaAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 
-    private void jButton3ActionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+           private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        String nome = jTextField1.getText().trim();
+        if (nome.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Digite o nome do produto.");
+            return;
+        }
+
+        com.mycompany.pizzaria.dao.PedidoDao dao = new com.mycompany.pizzaria.dao.PedidoDao();
+        if (dao.realizar(nome)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pedido realizado.");
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Produto nao encontrado.");
+        }
     }
 }
