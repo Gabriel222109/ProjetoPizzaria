@@ -50,4 +50,18 @@ public class Pedido {
     public void setTotal(double total) {
         this.total = total;
     }
+    
+        private String formaPagamento;
+    private double taxaEntrega;
+    private int tempoEntrega;
+
+    public String getFormaPagamento() { return formaPagamento; }
+    public void setFormaPagamento(String formaPagamento) { this.formaPagamento = formaPagamento; }
+
+    public double getTaxaEntrega() { return taxaEntrega; }
+    public void setTaxaEntrega(double taxaEntrega) { this.taxaEntrega = taxaEntrega; }
+
+    public int getTempoEntrega() { return tempoEntrega; }
+    public void setTempoEntrega(int tempoEntrega) { this.tempoEntrega = tempoEntrega; }
+    
 }

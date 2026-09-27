@@ -84,6 +84,20 @@ public class Conexao {
                 + ")"
             );
 
+            try { comando.execute("ALTER TABLE pedido ADD COLUMN forma_pagamento TEXT"); } catch (SQLException ignored) {}
+            try { comando.execute("ALTER TABLE pedido ADD COLUMN taxa_entrega REAL DEFAULT 0"); } catch (SQLException ignored) {}
+            try { comando.execute("ALTER TABLE pedido ADD COLUMN tempo_entrega INTEGER DEFAULT 40"); } catch (SQLException ignored) {}
+
+            comando.execute(
+                "CREATE TABLE IF NOT EXISTS notificacao ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "pedido_id INTEGER, "
+                + "mensagem TEXT NOT NULL, "
+                + "data TEXT NOT NULL, "
+                + "lida INTEGER NOT NULL DEFAULT 0"
+                + ")"
+            );
+            
             comando.execute(
                 "CREATE TABLE IF NOT EXISTS item_pedido ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "

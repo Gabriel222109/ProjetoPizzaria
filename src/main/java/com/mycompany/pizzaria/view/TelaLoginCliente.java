@@ -183,8 +183,7 @@ String usuario = jTextField1.getText().trim();
         }
 
        javax.swing.JOptionPane.showMessageDialog(this, "Bem-vindo, " + cliente.getNome() + "!");
-new TelaFinal().setVisible(true);
-dispose();
+new TelaFinal(cliente).setVisible(true);dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

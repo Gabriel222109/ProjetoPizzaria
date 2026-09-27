@@ -18,6 +18,59 @@ public class TelaFinal extends javax.swing.JFrame {
     public TelaFinal() {
         initComponents();
     }
+    
+        private com.mycompany.pizzaria.model.Cliente clienteLogado;
+
+    public TelaFinal(com.mycompany.pizzaria.model.Cliente cliente) {
+        this.clienteLogado = cliente;
+        initComponents();
+
+        jButton1.addActionListener(e -> pedir("Mussarela"));
+        jButton2.addActionListener(e -> pedir("Calabresa"));
+        jButton3.addActionListener(e -> pedir("Portuguesa"));
+        jButton4.addActionListener(e -> pedir("Frango com Catupiry"));
+        jButton5.addActionListener(e -> pedir("Coca-Cola 2L"));
+        jButton6.addActionListener(e -> pedir("Guarana 2L"));
+    }
+
+    private void pedir(String produto) {
+        String[] formas = {"Dinheiro", "Cartao", "PIX"};
+        String forma = (String) javax.swing.JOptionPane.showInputDialog(
+                this, "Escolha a forma de pagamento:", "Pagamento",
+                javax.swing.JOptionPane.QUESTION_MESSAGE, null, formas, formas[0]);
+        if (forma == null) {
+            return;
+        }
+
+        double taxa = 8.00;
+        int tempo = 40;
+
+        com.mycompany.pizzaria.dao.PedidoDao dao = new com.mycompany.pizzaria.dao.PedidoDao();
+        if (!dao.realizar(clienteLogado.getId(), produto, forma, taxa, tempo)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Nao foi possivel realizar o pedido.");
+            return;
+        }
+
+        String aviso = "NOTIFICACAO DE PEDIDO\n\n"
+                + "Produto: " + produto + "\n"
+                + "Pagamento: " + forma + "\n"
+                + "Taxa de entrega: R$ 8,00\n"
+                + "Tempo de entrega: 40 minutos\n"
+                + "Status: Aberto";
+
+        Object[] opcoes = {"Ok", "Cancelar pedido"};
+        int escolha = javax.swing.JOptionPane.showOptionDialog(
+                this, aviso, "Pedido realizado",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.INFORMATION_MESSAGE,
+                null, opcoes, opcoes[0]);
+
+        if (escolha == 1) {
+            if (dao.cancelarUltimo(clienteLogado.getId())) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Pedido cancelado.");
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,12 +127,12 @@ public class TelaFinal extends javax.swing.JFrame {
                         .addGap(359, 359, 359)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jButton5))
+                        .addGap(190, 190, 190)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton1)
+                                .addComponent(jButton5))
+                            .addComponent(jButton3))
                         .addGap(97, 97, 97)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton6)
