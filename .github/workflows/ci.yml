@@ -21,3 +21,12 @@ jobs:
 
       - name: Rodar testes
         run: mvn -B test
+
+      - name: Criar JAR
+        run: mvn -B package -DskipTests
+
+      - name: Guardar JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pizzaria-jar
+          path: target/*.jar

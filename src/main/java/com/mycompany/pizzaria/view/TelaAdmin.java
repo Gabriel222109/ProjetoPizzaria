@@ -15,12 +15,12 @@ public class TelaAdmin extends javax.swing.JFrame {
      * Creates new form TelaAdmin
      */
     
-   public TelaAdmin() {
+      public TelaAdmin() {
     initComponents();
 
     jButton1.addActionListener(this::jButton1ActionPerformed);
     jButton2.addActionListener(this::jButton2ActionPerformed);
-    jButton3.addActionListener(e -> this.jButton3ActionPerformed(e));
+    jButton3.addActionListener(this::jButton3ActionPerformed);
     jButton4.addActionListener(this::jButton4ActionPerformed);
 
     carregarTabela();
@@ -40,7 +40,6 @@ public class TelaAdmin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -48,6 +47,7 @@ public class TelaAdmin extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,8 +78,6 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         jButton2.setText("Deletar");
 
-        jButton3.setText("Realizar");
-
         jButton4.setText("Atualizar");
 
         jLabel2.setText("Produto:");
@@ -87,6 +85,9 @@ public class TelaAdmin extends javax.swing.JFrame {
         jLabel3.setText("Catálogo:");
 
         jLabel4.setText("Preço:");
+
+        jButton3.setText("Voltar para tela inicial");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,7 +105,9 @@ public class TelaAdmin extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                             .addComponent(jTextField1)
-                            .addComponent(jTextField3)))
+                            .addComponent(jTextField3))
+                        .addGap(140, 140, 140)
+                        .addComponent(jButton3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -113,11 +116,9 @@ public class TelaAdmin extends javax.swing.JFrame {
                                 .addComponent(jButton1)
                                 .addGap(44, 44, 44)
                                 .addComponent(jButton2)
-                                .addGap(41, 41, 41)
-                                .addComponent(jButton3)))
-                        .addGap(47, 47, 47)
-                        .addComponent(jButton4)))
-                .addContainerGap(175, Short.MAX_VALUE))
+                                .addGap(36, 36, 36)
+                                .addComponent(jButton4)))))
+                .addContainerGap(158, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
@@ -137,12 +138,13 @@ public class TelaAdmin extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3)))
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
@@ -161,6 +163,11 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new TelaCadastro().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,19 +305,4 @@ public class TelaAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
-
-           private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        String nome = jTextField1.getText().trim();
-        if (nome.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Digite o nome do produto.");
-            return;
-        }
-
-        com.mycompany.pizzaria.dao.PedidoDao dao = new com.mycompany.pizzaria.dao.PedidoDao();
-        if (dao.realizar(nome)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Pedido realizado.");
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Produto nao encontrado.");
-        }
-    }
 }

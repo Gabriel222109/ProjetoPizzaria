@@ -8,15 +8,18 @@ package com.mycompany.pizzaria.view;
  *
  * @author Dell G15
  */
-public class TelaLoginCliente extends javax.swing.JFrame {
+public class TelaLoginClienteouAdmin extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginCliente.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginClienteouAdmin.class.getName());
 
     /**
      * Creates new form TelaLoginCliente
      */
-    public TelaLoginCliente() {
+            public TelaLoginClienteouAdmin() {
     initComponents();
+
+    jButton2.addActionListener(this::jButton2ActionPerformed);
+    jButton3.addActionListener(e -> jButton3ActionPerformed(e));
 
     java.awt.Dimension tamanhoCampo = new java.awt.Dimension(220, 26);
     jTextField1.setPreferredSize(tamanhoCampo);
@@ -42,6 +45,7 @@ public class TelaLoginCliente extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +78,8 @@ public class TelaLoginCliente extends javax.swing.JFrame {
         jButton2.setText("Voltar para a tela de cadastro");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
+        jButton3.setText("Login Admin");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,11 +103,14 @@ public class TelaLoginCliente extends javax.swing.JFrame {
                         .addGap(260, 260, 260)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(262, 262, 262)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(226, 226, 226)
                         .addComponent(jButton2)))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 190, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(183, 183, 183))
         );
@@ -122,7 +131,9 @@ public class TelaLoginCliente extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addContainerGap(272, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,8 +163,10 @@ if (    jTextField2.getText().equals("Digite sua senha")) {
     }//GEN-LAST:event_jTextField2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-new TelaCadastro().setVisible(true);
-dispose();
+        TelaCadastro tela = new TelaCadastro();
+        tela.setLocationRelativeTo(null);
+        tela.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -186,6 +199,11 @@ String usuario = jTextField1.getText().trim();
 new TelaFinal(cliente).setVisible(true);dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+            private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        new TelaLoginAdmin().setVisible(true);
+        dispose();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -208,12 +226,13 @@ new TelaFinal(cliente).setVisible(true);dispose();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaLoginCliente().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new TelaLoginClienteouAdmin().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
